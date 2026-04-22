@@ -1,0 +1,29 @@
+name: System Info
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  system-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hostname & Uptime
+        run: |
+          echo "Hostname: $(hostname)"
+          echo "Uptime: $(uptime)"
+      - name: Memory & Disk
+        run: |
+          free -h
+          df -h
+
+  date-time:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show dates
+        run: |
+          echo "ISO: $(date --iso-8601=seconds)"
+          echo "UTC: $(date -u)"
+          echo "Unix timestamp: $(date +%s)"
