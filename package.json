@@ -1,0 +1,25 @@
+{
+  "name": "github-actions-demo",
+  "version": "1.0.0",
+  "description": "Node.js Express app for GitHub Actions CI/CD tutorial — Lesson 4",
+  "scripts": {
+    "start":  "node src/index.js",
+    "test":   "jest --coverage",
+    "lint":   "eslint src/ tests/",
+    "build":  "mkdir -p dist && cp -r src dist/"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@eslint/js":   "^9.27.0",
+    "eslint":       "^9.27.0",
+    "jest":         "^29.7.0",
+    "supertest":    "^7.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": ["src/**/*.js"]
+  }
+}
