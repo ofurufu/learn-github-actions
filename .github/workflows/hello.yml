@@ -1,0 +1,41 @@
+# Every workflow must have a name
+name: Hello World
+
+# 'on' defines the event(s) that trigger this workflow
+on:
+  push:                        # fires on every push...
+    branches: ["main"]         # ...but ONLY to the main branch
+  workflow_dispatch:           # also allows manual triggering from the UI
+
+# 'jobs' is where the actual work is defined
+jobs:
+
+  # 'greet' is the job ID (you name this)
+  greet:
+    # Which runner (OS) to use. ubuntu-latest is the most common.
+    runs-on: ubuntu-latest
+
+    # Steps run sequentially, top to bottom
+    steps:
+
+      # 'name' is optional but makes logs readable
+      - name: Print a greeting
+        # 'run' executes a shell command
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Show the current directory
+        run: pwd
+
+      - name: List files
+        run: ls -la
+
+      - name: Show runner OS info
+        run: cat /etc/os-release
+
+      - name: Print environment variables
+        run: |
+          # The pipe | lets you write multi-line shell commands
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Branch: $GITHUB_REF_NAME"
+          echo "Actor (who triggered this): $GITHUB_ACTOR"
+          echo "Run number: $GITHUB_RUN_NUMBER"
