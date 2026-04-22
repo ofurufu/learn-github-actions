@@ -1,0 +1,15 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate version tag
+        id: versioning               # give this step an ID to reference it
+        run: |
+          VERSION="v1.0.${{ github.run_number }}"
+          echo "Generated version: $VERSION"
+          # Write to GITHUB_OUTPUT to make it available in later steps
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Use the version
+        run: |
+          echo "Building ${{ steps.versioning.outputs.version }}"

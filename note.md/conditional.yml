@@ -1,0 +1,22 @@
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to staging (feature branches only)
+        # Only run this step on non-main branches
+        if: github.ref_name != 'main'
+        run: echo "Deploying feature branch to staging"
+
+      - name: Deploy to production (main only)
+        # Only run on main branch AND only if it's a push (not a PR)
+        if: github.ref_name == 'main' && github.event_name == 'push'
+        run: echo "Deploying to production!"
+
+      - name: Always run cleanup
+        # This runs even if previous steps fail
+        if: always()
+        run: echo "Cleanup complete"
+
+      - name: Only on failure
+        if: failure()
+        run: echo "Something went wrong! Send alert."

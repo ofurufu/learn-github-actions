@@ -1,0 +1,7 @@
+on:
+  schedule:
+    # Cron format: minute hour day-of-month month day-of-week
+    - cron: '0 2 * * *'     # Every day at 2:00 AM UTC
+    - cron: '0 0 * * 1'     # Every Monday at midnight UTC
+
+# Tip: Use https://crontab.guru to build cron expressions

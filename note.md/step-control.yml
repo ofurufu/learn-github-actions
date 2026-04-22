@@ -1,0 +1,15 @@
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30    # kill the entire job after 30 minutes
+    steps:
+      - name: Flaky test (allowed to fail)
+        continue-on-error: true   # job continues even if this step fails
+        run: exit 1                  # simulates a failure
+
+      - name: This still runs
+        run: echo "I ran because continue-on-error was true"
+
+      - name: Step with timeout
+        timeout-minutes: 5          # this specific step times out after 5 min
+        run: sleep 30

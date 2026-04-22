@@ -1,0 +1,25 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # METHOD 1: Built into setup actions (recommended for simple cases)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'   # caches ~/.npm using package-lock.json as key
+
+      # METHOD 2: actions/cache for full control
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip          # what to cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          # Cache key: if requirements.txt changes, the hash changes,
+          # creating a new cache. Old cache is ignored.
+          restore-keys: |             # fallback to older caches
+            ${{ runner.os }}-pip-
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt

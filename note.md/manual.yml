@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment target'
+        required: true
+        default: 'staging'
+        type: choice
+        options: [staging, production]
+      debug_mode:
+        description: 'Enable debug logging'
+        type: boolean
+        default: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show inputs
+        run: |
+          echo "Deploying to: ${{ github.event.inputs.environment }}"
+          echo "Debug mode: ${{ github.event.inputs.debug_mode }}"

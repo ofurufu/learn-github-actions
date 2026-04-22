@@ -1,0 +1,19 @@
+name: Trigger Example
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/**'       # matches release/v1, release/v2, etc.
+    branches-ignore:
+      - 'dependabot/**'    # skip Dependabot's automated PRs
+    paths:
+      - 'src/**'           # only run if files in src/ changed
+      - 'package.json'
+    paths-ignore:
+      - 'docs/**'          # don't run for documentation changes
+      - '*.md'
+
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]  # default types

@@ -1,0 +1,27 @@
+name: Env Levels
+
+# ① WORKFLOW-LEVEL env — available to all jobs and steps
+env:
+  APP_NAME: my-awesome-app
+  NODE_VERSION: '20'
+
+on: [push]
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+
+    # ② JOB-LEVEL env — available to all steps in this job
+    env:
+      BUILD_DIR: ./dist
+      ENVIRONMENT: staging
+
+    steps:
+      - name: Print workflow env
+        run: echo "Building $APP_NAME with Node $NODE_VERSION"
+
+      # ③ STEP-LEVEL env — only available in this one step
+      - name: Step with its own env
+        env:
+          STEP_ONLY: "hello from step"
+        run: echo "$STEP_ONLY → going to $BUILD_DIR in $ENVIRONMENT"
